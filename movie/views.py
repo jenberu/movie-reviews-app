@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Movie
 def home(request):
- #get the input value from  default GET method form
- searchTerm=request.GET.get('searchMovie')
- return render(request, 'home.html', {'searchTerm':searchTerm}
-)
+ searchTerm = request.GET.get('searchMovie')
+ movies = Movie.objects.all()
+ return render(request, 'home.html',
+ {'searchTerm':searchTerm, 'movies': movies})
 # Create your views here.
 def about(request):
  return HttpResponse('<h1>Welcome to About Page</h1>')
