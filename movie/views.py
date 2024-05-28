@@ -1,6 +1,8 @@
-from django.shortcuts import render , get_object_or_404
+from django.shortcuts import render , get_object_or_404,redirect
 from django.http import HttpResponse
-from .models import Movie
+from .models import Movie, Review
+from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
 
 def home(request):
   searchTerm = request.GET.get('searchMovie')
@@ -17,8 +19,50 @@ def signup(request):
  return render(request, 'signup.html', {'email':email})
 def detail(request,movie_id):
   movie=get_object_or_404(Movie,pk=movie_id)
-  return render(request, 'detail.html', {'movie':movie})
+  reviews=Review.objects.filter(movie=movie)
+  return render(request, 'detail.html', {'movie':movie,'reviews':reviews})
 """We use get_object_or_404 to get the specific movie object we want. 
 We provide movie_id as the primary key, pk=movie_id. If there is a match, 
 get_object_or_404, as its name suggests, returns us the object or the not 
 found (404) object """
+@login_required
+def createreview(request, movie_id):
+  movie=get_object_or_404(Movie,pk=movie_id)
+  if request.method=='GET':
+    return render(request,'createreview.html',{'form':ReviewForm(), 'movie':movie})
+  else:
+    try:
+      form=ReviewForm(request.POST)
+      newReview=form.save(commit=False)# set additional fields on the model instance before saving it to the database
+      newReview.user=request.user  # Assign the currently logged-in user to the review
+      newReview.movie=movie
+      newReview.save()
+      return redirect('detail',newReview.movie.id)
+    except ValueError:
+      return render(request,'createreview.html',{'form':ReviewForm(),'error':'bad data passed in'})
+@login_required
+def updatereview(request,review_id):
+  review=get_object_or_404(Review,pk=review_id,user=request.user)
+  if request.method=='GET':
+    form=ReviewForm(instance=review)
+    return render(request,'updatereview.html',{'review':review,'form':form})
+  else:
+    try:
+      form=ReviewForm(request.POST,instance=review)
+      form.save()
+      return redirect('detail',review.movie.id)
+    except ValueError:
+      return render(request,'updatereview.html',{'review': review,'form':form,'error':'Bad data in form'})
+    
+@login_required
+def deletereview(request,review_id):
+  review=get_object_or_404(Review,pk=review_id,user=request.user)
+  review.delete()
+  return redirect('detail', review.movie.id)
+
+    
+      
+
+
+
+

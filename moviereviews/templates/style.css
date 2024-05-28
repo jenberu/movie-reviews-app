@@ -1,0 +1,11 @@
+.nav-link {
+    color: #007bff; /* Bootstrap primary color */
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.nav-link:hover {
+    color: #0056b3; /* Darker shade on hover */
+}

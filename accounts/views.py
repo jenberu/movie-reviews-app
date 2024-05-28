@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, logout,authenticate
 from django.shortcuts import redirect
 from django.db import IntegrityError
+from django.contrib.auth.decorators  import login_required
 
 
 def signupaccount(request):
@@ -25,6 +26,7 @@ def signupaccount(request):
               return render(request, 'signupaccount.html',{'form':UserCreateForm ,'error':'passwords do not match'})
          
 #add logout functionality
+@login_required
 def logoutaccount(request):
      #call logout and redirect to go back to the home page
      logout(request)

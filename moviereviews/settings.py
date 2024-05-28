@@ -134,3 +134,6 @@ MEDIA_URL = '/media/'
 STATICFILES_DIRS = [
  BASE_DIR / 'moviereviews/static/',
 ]
+LOGIN_URL='loginaccount'
+#This redirects a user (who is not logged in) to the login page when they attempt to 
+#access an authorized page

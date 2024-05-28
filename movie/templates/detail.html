@@ -12,10 +12,40 @@
  <p class="card-text">{{ movie.description}}</p>
  <p class="card-text">
  {% if movie.url %}
- <a href="{{ movie.url }}" class="btn btn-primary">Movie Link
+ <a href="{{ movie.url }}" class="btn btn-primary">Watch this Movie</a>
+ {% endif %}
+ <!--only allow logged-in users to add a review-->
+ {% if user.is_authenticated %}
+ <a href="{% url 'createreview' movie.id %}" class="btn btn-primary">
+ Add Review
  </a>
  {% endif %}
  </p>
+ <hr/>
+ <h3>Reviews</h3>
+  <ul class="list-group">
+ {% for review in reviews %} 
+   <li class="list-group-item pb-3 pt-3">
+    <h5 class="card-title">
+    {% if user == review.user %}
+       Reviewed by You
+    {% else%}  
+      Reviewed by {{ review.user.username }}
+    {% endif %} 
+      </h5>
+     <h6 class="card-subtitle mb-2 text-muted">
+      {{ review.date }}
+    </h6>
+      <p class="card-text">{{ review.text }}</p>
+    {% if user.is_authenticated and user == review.user %} 
+       <a class="btn btn-primary me-2" href="{% url 'updatereview' review.id %}">Update</a>
+       <a class="btn btn-danger"href="{% url 'deletereview' review.id %}">Delete</a>
+    {% endif %}
+     </li>
+ {% endfor %}
+ </ul>
+
+
  </div>
  </div>
  </div>
