@@ -10,12 +10,26 @@
         }
     </script>
 <style>
+         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
         .nav-link ,.navbar-brand {
              /* Bootstrap primary color */
             font-size: 24px;
             font-weight: bold;
             text-decoration: none;
             margin-right: 5px;
+        }
+        .content {
+            flex: 1;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: pink;
         }
         
     </style>
@@ -25,6 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body style="background-color: #646970;">
+<div class="content">
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
         <div class="container">
@@ -42,6 +57,9 @@
                       <a class="nav-link" href="{% url 'loginaccount' %}" style="color: blue;"onmouseover="hoverEffect(this, '#0056b3')" onmouseout="hoverEffect(this, '#007bff')">Login</a>
                       <a class="nav-link" href="{% url 'signupaccount' %}"style="color: blue;"onmouseover="hoverEffect(this, '#0056b3')" onmouseout="hoverEffect(this, '#007bff')">Sign Up</a>
                     {% endif %}  
+                    {% verbatim %}
+                     <a class="nav-link" href=" https://jenberu.github.io/MyPortifolo" style="color: blue;"onmouseover="hoverEffect(this, '#0056b3')" onmouseout="hoverEffect(this, '#007bff')">About Me</a>
+                    {% endverbatim %}
                 </div>
             </div>
         </div>
@@ -51,6 +69,7 @@
     <div class="container">
         {% block content %}
         {% endblock content %}
+    </div>
     </div>
 <footer class="text-center text-lg-start bg-light  text-muted mt-4">
  <div class="text-center p-4" style="background-color:pink;">
