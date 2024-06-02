@@ -1,28 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="card mb-3">
+<div class="card mb-3 detail-body">
  <div class="row g-0">
- <div class="col-md-4">
- <img src="{{ movie.image.url }}" 
- class="img-fluid rounded-start" alt="">
+ <div class="col-md-4  image-detail">
+ <img src="{{ movie.image.url }}" class="img-fluid rounded-start" alt="">
+ <div class="link-control" style="margin:10px">
+ {% if movie.url %}
+ <a href="{{ movie.url }}" class="btn btn-primary">Watch this Movie</a>
+ {% endif %}
+ {% if user.is_authenticated %}
+ <a href="{% url 'createreview' movie.id %}" class="btn btn-primary">
+ Add Comments
+ </a>
+  </div>
  </div>
  <div class="col-md-8">
  <div class="card-body">
  <h5 class="card-title">{{ movie.title }}</h5>
  <p class="card-text">{{ movie.description}}</p>
+
  <p class="card-text">
- {% if movie.url %}
- <a href="{{ movie.url }}" class="btn btn-primary">Watch this Movie</a>
- {% endif %}
+ 
  <!--only allow logged-in users to add a review-->
- {% if user.is_authenticated %}
- <a href="{% url 'createreview' movie.id %}" class="btn btn-primary">
- Add Review
- </a>
+ 
+ 
+ <form id="likeForm" action="{% url 'detail' movie.id %}" method="post">
+    {% csrf_token %}
+     <button type="submit" id="likeButton">Like</button></form>
  {% endif %}
  </p>
  <hr/>
- <h3>Reviews</h3>
+ <h3>{{total_comments}} comments : {{ movie.likes.count}} Likes</h3>
   <ul class="list-group">
  {% for review in reviews %} 
    <li class="list-group-item pb-3 pt-3">
@@ -37,6 +45,16 @@
       {{ review.date }}
     </h6>
       <p class="card-text">{{ review.text }}</p>
+      <div>
+       <h5 id="likesCount">{{ review.likes_count.count }} Likes</h5>
+
+    {% if user.is_authenticated %}
+          <form action="{% url 'like_review' review_id=review.id %}" method="post" id="likeForm">
+           {% csrf_token %}
+           <button type="submit" id="likeButton">Like</button>
+          </form>
+    {% endif %}
+    </div>
     {% if user.is_authenticated and user == review.user %} 
        <a class="btn btn-primary me-2" href="{% url 'updatereview' review.id %}">Update</a>
        <a class="btn btn-danger"href="{% url 'deletereview' review.id %}">Delete</a>
@@ -50,4 +68,5 @@
  </div>
  </div>
 </div>
+
 {% endblock content %}

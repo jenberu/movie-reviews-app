@@ -9,3 +9,27 @@
 .nav-link:hover {
     color: #0056b3; /* Darker shade on hover */
 }
+/* static/blog/custom.css */
+
+.custom-input {
+    border: 2px solid #007bff;
+    padding: 10px;
+    border-radius: 30px;
+    background-color: darkcyan;
+}
+
+.custom-input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+}
+
+.btn-custom {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}

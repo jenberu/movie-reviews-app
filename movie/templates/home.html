@@ -2,29 +2,35 @@
 {% block content %}
  <form action="">
  <div class="mb-3">
- <label class="form-label" style="color:#f1f1f1;font-size: 16px;font-weight: bold;">Search for Movie:</label>
- <input type="text" name="searchMovie" class="form-control" />
- </div>
- <button type="submit" class="btn btn-primary">Search</button>
+ <div class="mb-3 inline-form">
+        <label class="form-label" style="color:#f1f1f1;font-size: 16px;font-weight: bold;">Search for Movie:</label>
+        <input type="text" name="searchMovie" class="form-control"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </div>
  </form>
  <p style="color:#f1f1f1;font-size: 16px;font-weight: bold;">Searching for: {{ searchTerm }}</p>
  <div class="row row-cols-1 row-cols-md-3 g-4">
- {% for movie in movies %}
-  <div v-for="movie in movies" class="col">
-  <div class="card">
-  <img class="card-img-top" src="{{ movie.image.url }}" style="height: 300px;" />
+ {% if movies  %}
+   {% for movie in movies %}
+     <div v-for="movie in movies" class="col">
+     <div class="card">
+     <img class="card-img-top" src="{{ movie.image.url }}" style="height: 300px;" />
 
-  <div class="card-body">
-    <a href="{% url 'detail' movie.id %}">
+     <div class="card-body">
+     <a href="{% url 'detail' movie.id %}">
       <h5 class="card-title fw-bold">{{movie.title }}</h5>
-    </a>
-  <p class="card-text">{{ movie.description}}</p>
-  {% if movie.url %}
-  <a href="{{ movie.url }}" class="btn btn-primary"> Watch this Movie </a>
-  {% endif %}
-</div>
-</div>
-</div>
- {% endfor %}
+     </a>
+     <p class="card-text">{{ movie.description|truncatewords:10}}</p>
+     {% if movie.url %}
+     <a href="{{ movie.url }}" class="btn btn-primary"> Watch this Movie </a>
+     {% endif %}
+     </div>
+     </div>
+     </div>
+   {% endfor %}
+  {% else %} 
+    <h5 class="nodata"> {{nodata }} for {{ searchTerm }} </h5>
+  {% endif %} 
+
 </div>
 {% endblock content %}

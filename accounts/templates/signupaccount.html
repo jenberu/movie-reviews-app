@@ -12,7 +12,7 @@
  </div>
  {% endif %}
  <p class="card-text">
- <form method="POST">
+ <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" 

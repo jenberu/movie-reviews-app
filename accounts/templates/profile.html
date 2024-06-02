@@ -1,0 +1,10 @@
+<!-- profile.html -->
+{% load static %}
+<form id="profileImageForm" method="post" enctype="multipart/form-data" style="display: none;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="file" id="profileImageInput" name="image" accept="image/*">
+    <button type="submit">Upload</button>
+</form>
+
+

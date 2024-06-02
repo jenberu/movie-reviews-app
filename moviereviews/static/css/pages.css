@@ -1,0 +1,110 @@
+
+         body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .nav-link ,.navbar-brand {
+             /* Bootstrap primary color */
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+        .content {
+            flex: 1;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: pink;
+        }
+        /* static/blog/custom.css */
+
+.custom-input {
+    border: 2px solid #007bff;
+    padding: 10px;
+    border-radius: 5px;
+}
+.inline-form {
+    display: flex;
+    align-items: center;
+}
+.inline-form .form-label {
+    margin-right: 10px;
+}
+.inline-form .form-control {
+    flex: 1;
+    margin-right: 10px;
+    width: 500px;
+}
+.custom-input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 5px rgba(0, 91, 187, 0.5);
+}
+
+.btn-custom {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+}
+
+.btn-custom:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+        
+  /* Add this to your CSS file */
+#profile-image img {
+    position: relative;
+    display: inline-block;
+}
+
+#profile-image img::after {
+    content: attr(title);
+    display: none;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+#profile-image img:hover::after {
+    display: block;
+}
+/* styles.css */
+
+/* styles.css */
+#likesCount {
+    
+    display: inline-block;
+    margin-right: 10px; /* Adjust the margin as needed */
+}
+
+#likeButton {
+   
+    margin: 10px;
+    display: inline-block;
+    background-color: #b6c4d3;
+    color: #181616;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#likeButton:hover {
+    background-color: #0056b3;
+}
+
+#likeButton.clicked {
+    background-color: #0056b3;
+}
